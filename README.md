@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Personal Portfolio Website
 
 A modern, responsive portfolio website built with React, Tailwind CSS, and Node.js backend with contact form functionality.
