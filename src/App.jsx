@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import './index.css'
 import Home from './home.jsx'
 import About from './about.jsx'
@@ -9,10 +9,10 @@ function Navigation() {
   return (
     <nav className="bg-black p-4">
       <div className="flex items-center justify-center divide-x-2"> 
-        <a href="/" className="text-white hover:text-gray-300 px-12">Home</a>
-        <a href="/about" className="text-white hover:text-gray-300 px-12">About</a>
-        <a href="/projects" className="text-white hover:text-gray-300 px-12">Projects</a>
-        <a href="/contact" className="text-white hover:text-gray-300 px-12">Contact</a>
+        <Link to="/" className="text-white hover:text-gray-300 px-12">Home</Link>
+        <Link to="/about" className="text-white hover:text-gray-300 px-12">About</Link>
+        <Link to="/projects" className="text-white hover:text-gray-300 px-12">Projects</Link>
+        <Link to="/contact" className="text-white hover:text-gray-300 px-12">Contact</Link>
       </div>
     </nav>
   )
