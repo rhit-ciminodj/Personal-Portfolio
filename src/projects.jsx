@@ -14,7 +14,7 @@ const projects = [
     ],
     github: "https://github.com/rhit-ciminodj",
     live: null,
-    status: "In Progress"
+    status: "Completed"
   },
   {
     title: "Angular Web Application",

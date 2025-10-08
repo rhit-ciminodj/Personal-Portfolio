@@ -21,20 +21,35 @@ function Navigation() {
 function Opener() {
   let title = 'Dominic Cimino';
   let description = 'Software Engineering Student | Full-Stack Developer | Problem Solver';
-  let logo = './public/logo.png';
-
   return (
-    <>
-      <div class="flex flex-col md:flex-row items-center h-[75vh] bg-gradient-to-b from-blue-900 to-black">
-        <div class="flex flex-col justify-center gap-4 p-4 w-1/2">
-          <h1 class="bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-400 text-7xl text-center md:text-start">{title}</h1>
-          <p class="text-white text-sm mt-2 text-center md:text-start">{description}</p>
-        </div>
-        <div className="w-1/2 h-full bg-cover bg-center bg-no-repeat rounded-lg shadow-lg" style={{backgroundImage: `url(${logo})`}}>
+    <section className="bg-gradient-to-b from-blue-900 to-black py-12">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 md:p-10 flex flex-col items-center gap-6 shadow-lg text-center">
+          {/* Centered text content */}
+          <div className="w-full max-w-3xl">
+            <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-yellow-400 leading-tight">
+              {title}
+            </h1>
+            <p className="text-gray-200 mt-3 md:mt-4 text-sm md:text-base">
+              {description}
+            </p>
+
+            <div className="flex flex-wrap gap-2 mt-4 justify-center">
+              <span className="text-xs bg-white/10 text-white px-3 py-1 rounded-full">React</span>
+              <span className="text-xs bg-white/10 text-white px-3 py-1 rounded-full">Node.js</span>
+              <span className="text-xs bg-white/10 text-white px-3 py-1 rounded-full">Tailwind</span>
+              <span className="text-xs bg-white/10 text-white px-3 py-1 rounded-full">Full-Stack</span>
+            </div>
+
+            <div className="mt-6 flex items-center justify-center gap-4">
+              <Link to="/projects" className="inline-block bg-yellow-400 text-black px-5 py-2 rounded-lg font-semibold hover:opacity-90">View Projects</Link>
+              <Link to="/contact" className="inline-block border border-white/20 text-white px-4 py-2 rounded-lg hover:bg-white/5">Contact Me</Link>
+            </div>
+          </div>
         </div>
       </div>
-    </>
-  )
+    </section>
+  );
 }
 
 export default function App() {
