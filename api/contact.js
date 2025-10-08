@@ -35,26 +35,44 @@ export default async function handler(req, res) {
       });
     }
 
-    // Configure email transporter
-    const transporter = nodemailer.createTransporter({
+    // Validate environment variables
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('Missing EMAIL_USER or EMAIL_PASS environment variable');
+      return res.status(500).json({
+        success: false,
+        error: 'Email service not configured'
+      });
+    }
+
+    // Configure email transporter (use createTransport)
+    const transporter = nodemailer.createTransport({
       service: 'gmail',
       host: 'smtp.gmail.com',
       port: 587,
-      secure: false,
+      secure: false, // upgrade later with STARTTLS
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
-      },
-      tls: {
-        rejectUnauthorized: false
       }
     });
 
+    // Verify transporter connectivity before sending
+    try {
+      await transporter.verify();
+    } catch (verifyError) {
+      console.error('Failed to verify transporter:', verifyError);
+      return res.status(502).json({
+        success: false,
+        error: 'Failed to connect to email service'
+      });
+    }
+
     // Email options
     const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: 'cimfam1222@gmail.com',
+      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_USER,
       subject: `Portfolio Contact: ${subject || 'New Message'} from ${name}`,
+      replyTo: email,
       html: `
         <h3>New Contact Form Submission</h3>
         <p><strong>Name:</strong> ${name}</p>
@@ -81,3 +99,8 @@ export default async function handler(req, res) {
     });
   }
 }
+
+// Ensure this function runs in Node runtime on Vercel (not Edge)
+export const config = {
+  runtime: 'nodejs'
+};

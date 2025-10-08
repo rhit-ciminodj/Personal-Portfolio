@@ -124,3 +124,8 @@ export default async function handler(req, res) {
     });
   }
 }
+
+// Ensure this function runs in Node runtime on Vercel (not Edge)
+export const config = {
+  runtime: 'nodejs'
+};

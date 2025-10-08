@@ -33,16 +33,25 @@ export default function Contact() {
         body: JSON.stringify(formData)
       });
 
-      const result = await response.json();
-
-      if (result.success) {
-        setSubmitMessage('Message sent successfully! I\'ll get back to you soon.');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        setSubmitMessage(result.error || 'Failed to send message. Please try again.');
+      // Try to parse response body safely
+      let result = {};
+      try {
+        result = await response.json();
+      } catch (parseErr) {
+        console.warn('Failed to parse JSON response from /api/contact', parseErr);
       }
-    } catch (error) {
-      setSubmitMessage('Network error. Please check your connection and try again.');
+
+      if (!response.ok) {
+        console.error('Contact API returned error', response.status, result);
+        setSubmitMessage(result.error || 'Server error while sending message.');
+      } else {
+        setSubmitMessage(result.message || 'Message sent successfully! I\'ll get back to you soon.');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      }
+    } catch (err) {
+      // Log the actual error to the browser console for debugging
+      console.error('Network error sending contact:', err);
+      setSubmitMessage('Network error. Please check server logs or try again later.');
     } finally {
       setIsSubmitting(false);
     }
