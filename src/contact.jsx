@@ -24,9 +24,8 @@ export default function Contact() {
     setSubmitMessage('');
 
     try {
-      // Use environment variable for API URL, fallback to localhost for development
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const response = await fetch(`${apiUrl}/api/contact`, {
+      // Always use relative URL for API calls on Vercel
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
